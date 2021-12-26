@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import java.lang.Math;
 
 public class Sketch extends PApplet {
 
@@ -7,7 +8,10 @@ public class Sketch extends PApplet {
    * state global variables
    *  
    * */ 
-  public float circleY = -50;
+  public float circleX = 0;
+  public float circleY;
+  public float speedX = 1;
+  public int fillcolour = 219;
 
 	
 	
@@ -16,7 +20,7 @@ public class Sketch extends PApplet {
    */
   public void settings() {
 	  // put your size call here
-    size(200, 200);
+    size(400, 400);
   }
 
   /** 
@@ -32,22 +36,47 @@ public class Sketch extends PApplet {
    */
   public void draw() {
 	  
+    
     // clear out old frames
-    background(32);
+    background(20, 136, 199);
+    
+    //sunset
+    if (circleX >= 200)
+    {
+      fillcolour = fillcolour - 1;
+      background(fillcolour);
+    }
 
     // draw current frame based on state
-    ellipse(100, circleY, 50, 50);
-  
+    stroke(23, 184, 2);
+    fill(23, 184, 2);
+    rect(0, 250, 400, 200);
+    
+    stroke(252, 186, 3);
+    fill(252, 186, 3);
+    ellipse(circleX, circleY, 50, 50);
+
     // modify state
-    circleY = circleY + 1;
+    circleX = circleX + speedX;
+
+    //determine circleY variable
+    float speedX2 = circleX - 100;
+    double brackets = speedX2 - 100;
+    double power = Math.pow(brackets, 2);
+    double doublespeedY = 0.01 * power;
+    circleY = (float)doublespeedY;
   
-    // reset state
-    if(circleY > height+50) {
-      circleY = 0;
+    //making two cycles
+    if (circleY > height + 100)
+    {
+      circleX = 0;
+      fillcolour = 219;
     }
-  }
+
+    
+
   
   // define other methods down here.
 
-
+  }
 }
